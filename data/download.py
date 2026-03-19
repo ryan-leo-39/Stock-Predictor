@@ -16,7 +16,8 @@ CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "cache")
 def get_sp500_tickers() -> list[str]:
     """Scrape current S&P 500 constituent tickers from Wikipedia."""
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    tables = pd.read_html(url)
+    headers = {"User-Agent": "Mozilla/5.0"}
+    tables = pd.read_html(url, storage_options={"User-Agent": "Mozilla/5.0"})
     df = tables[0]
     tickers = df["Symbol"].tolist()
     # Wikipedia uses dots (BRK.B), yfinance uses dashes (BRK-B)
