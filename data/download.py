@@ -50,6 +50,9 @@ def download_ticker(
 
     if use_cache and os.path.exists(cache_path):
         df = pd.read_csv(cache_path, index_col=0, parse_dates=True)
+        # Newer yfinance writes an extra "Ticker" header row into the CSV.
+        # Convert all columns to numeric and drop any non-numeric rows (e.g. "AAPL").
+        df = df.apply(pd.to_numeric, errors="coerce").dropna(how="all")
         return df if len(df) >= 100 else None
 
     try:
