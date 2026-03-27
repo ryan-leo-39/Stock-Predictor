@@ -78,7 +78,7 @@ class Predictor:
         x = torch.from_numpy(window_scaled).unsqueeze(0).to(self.device)  # (1, seq_len, n_feat)
 
         with torch.no_grad():
-            prob = self.model(x).item()
+            prob = self.model(x).sigmoid().item()
 
         signal = self._get_signal(prob)
         confidence = abs(prob - 0.5) * 2  # [0, 1] — how far from neutral
