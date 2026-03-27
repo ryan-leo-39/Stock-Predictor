@@ -17,7 +17,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from torch.cuda.amp import GradScaler, autocast
+from torch.amp import GradScaler, autocast
 
 # Allow running from project root
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
@@ -112,7 +112,7 @@ def train():
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode="max", factor=0.5, patience=3, verbose=True
     )
-    amp_scaler = GradScaler(enabled=CONFIG["amp"])
+    amp_scaler = GradScaler("cuda", enabled=CONFIG["amp"])
 
     # ── 5. Training loop ──────────────────────────────────────────────────────
     best_val_acc = 0.0
@@ -130,7 +130,7 @@ def train():
             x, y = x.to(device), y.to(device)
             optimizer.zero_grad()
 
-            with autocast(enabled=CONFIG["amp"]):
+            with autocast("cuda", enabled=CONFIG["amp"]):
                 pred = model(x)
                 loss = criterion(pred, y)
 
