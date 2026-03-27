@@ -28,7 +28,7 @@ def evaluate(
             pred = model(x)
             loss = criterion(pred, y)
             total_loss += loss.item() * len(y)
-            all_preds.extend((pred >= 0.5).cpu().long().tolist())
+            all_preds.extend((pred.sigmoid() >= 0.5).cpu().long().tolist())
             all_labels.extend(y.cpu().long().tolist())
 
     n = len(all_labels)

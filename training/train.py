@@ -101,9 +101,6 @@ def train():
     pos_weight = torch.tensor([class_weights[1] / class_weights[0]]).to(device)
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
-    # Use plain BCE since model outputs sigmoid
-    criterion = nn.BCELoss()
-
     optimizer = torch.optim.AdamW(
         model.parameters(),
         lr=CONFIG["lr"],

@@ -54,7 +54,6 @@ class StockLSTM(nn.Module):
             nn.ReLU(),
             nn.Dropout(dropout),
             nn.Linear(64, 1),
-            nn.Sigmoid(),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
