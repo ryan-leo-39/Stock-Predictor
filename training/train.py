@@ -81,15 +81,15 @@ def train():
     # ── 3. DataLoaders ────────────────────────────────────────────────────────
     train_loader = DataLoader(
         train_ds, batch_size=CONFIG["batch_size"], shuffle=True,
-        num_workers=4, pin_memory=True
+        num_workers=0, pin_memory=True
     )
     val_loader = DataLoader(
         val_ds, batch_size=CONFIG["batch_size"], shuffle=False,
-        num_workers=2, pin_memory=True
+        num_workers=0, pin_memory=True
     )
     test_loader = DataLoader(
         test_ds, batch_size=CONFIG["batch_size"], shuffle=False,
-        num_workers=2, pin_memory=True
+        num_workers=0, pin_memory=True
     )
 
     # ── 4. Model ──────────────────────────────────────────────────────────────
